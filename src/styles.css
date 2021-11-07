@@ -1,0 +1,44 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .tabControl {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .tabButton {
+    flex: 1;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+  }
+  
+  .tabButton.active {
+    color: white;
+    background-color: #28b496;
+  }
+  
+  .inputTitle {
+    height: 30px;
+    width: 100%;
+  }
+  
+  .inputContent {
+    height: 30px;
+    width: 100%;
+  }
+  
+  .btn {
+    width: 200px;
+    height: 44px;
+    background-color: purple;
+    color: white;
+  }
+  
+  .btn.active {
+    background-color: yellow;
+    color: black;
+  }
