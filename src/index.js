@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import AppMemo from "./AppMemo";
-import AppRockScissorsPaper from "./AppRockScissorsPaper";
-import AppRussianRoulette from "./AppRussianRoulette";
+import HomePage from "./pages/HomePage"
+import MemoPage from "./pages/MemoPage";
+import RockScissorsPaperPage from "./pages/RockScissorsPaperPage";
+import RussianRoulettePage from "./pages/RussianRoulettePage";
 
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/memo" element={<AppMemo />} />
-      <Route path="/rock-scissors-paper" element={<AppRockScissorsPaper />} />
-      <Route path="/russian-roulette" element={<AppRussianRoulette />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/memo" element={<MemoPage />} />
+      <Route path="/rock-scissors-paper" element={<RockScissorsPaperPage />} />
+      <Route path="/russian-roulette" element={<RussianRoulettePage />} />
     </Routes>
   </BrowserRouter>,
   rootElement

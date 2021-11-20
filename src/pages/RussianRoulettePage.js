@@ -1,6 +1,5 @@
-import "./styles.css";
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import Template from "../components/Template";
 
 const randomPick = (maxNum) => {
   return parseInt(Math.random() * maxNum) + 1;
@@ -16,8 +15,7 @@ const btnStyle = {
   lineHeight: 2
 };
 
-export default function AppRussianRoulette() {
-  const navigate = useNavigate();
+const RussianRoulettePage = () => {
   const [cnt, setCnt] = useState(0);
   const [gameCnt, setGameCnt] = useState(randomPick(10));
 
@@ -33,26 +31,26 @@ export default function AppRussianRoulette() {
     }
   };
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      margin: "200px"
-    }}
-    >
-      <h1>Russian Roulette</h1>
-      <br />
-      <br />
-      <h2>How many : {cnt}</h2>
-      <br />
-      <button style={btnStyle} onClick={(e) => checkResult()}>
-        Button
-      </button>
-      <br />
-      <button style={btnStyle} onClick={(e) => navigate("/")}>
-        Go to Home
-      </button>
-    </div>
+    <Template now="russian-roulette">
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "200px"
+      }}
+      >
+        <h1>Russian Roulette</h1>
+        <br />
+        <br />
+        <h2>How many : {cnt}</h2>
+        <br />
+        <button style={btnStyle} onClick={(e) => checkResult()}>
+          Button
+        </button>
+      </div>
+    </Template>
   );
 }
+
+export default RussianRoulettePage;

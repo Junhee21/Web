@@ -1,9 +1,8 @@
-import "./styles.css";
 import React, { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import { ButtonGroup } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import Template from "../components/Template";
 
 const randomPick = () => {
   return parseInt(Math.random() * 3);
@@ -19,13 +18,11 @@ const transNumToStr = (partner) => {
   }
 };
 
-export default function AppRockScissorsPaper() {
-  const navigate = useNavigate();
+const RockScissorsPaperPage = () => {
   const [partner, setPartner] = useState(randomPick());
   const [strPartner, setStrPartner] = useState("Rock! Scissors! Paper!");
-  useEffect(() => {
-    alert(strPartner);
-  }, [strPartner]);
+
+  useEffect(() => { alert(strPartner); }, [strPartner]);
 
   const rcpPick = (num) => {
     setPartner(randomPick());
@@ -40,7 +37,7 @@ export default function AppRockScissorsPaper() {
     }
   };
 
-  const result = (num, Partner) => {
+  const result = (num, partner) => {
     if (num === 0) {
       setStrPartner("Computer is " + transNumToStr(partner) + "\nDrow!");
     } else if (num === 1) {
@@ -51,46 +48,40 @@ export default function AppRockScissorsPaper() {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      margin: "200px"
-    }}
-    >
-      <Typography variant="h2" component="h1" gutterBottom>
-        Rock! Scissors! Paper!
-      </Typography>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Typography variant="h3" component="h1" gutterBottom>
-        Choose one
-      </Typography>
-      <br />
-      <ButtonGroup
-        aria-label="vertical outlined button group"
-        variant="outlined"
-        size="large"
-        color="secondary"
+    <Template now="rock-scissors-paper">
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "200px"
+      }}
       >
-        <Button onClick={(e) => rcpPick(0)}>Rock</Button>
-        <Button onClick={(e) => rcpPick(1)}>Scissors</Button>
-        <Button onClick={(e) => rcpPick(2)}>Paper</Button>
-      </ButtonGroup>
-      <br />
-      <br />
-      <Button
-        onClick={(e) => navigate("/")}
-        variant="outlined"
-        size="large"
-        color="secondary"
-      >
-        Go to home
-      </Button>
-    </div>
+        <Typography variant="h2" component="h1" gutterBottom>
+          Rock! Scissors! Paper!
+        </Typography>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Typography variant="h3" component="h1" gutterBottom>
+          Choose one
+        </Typography>
+        <br />
+        <ButtonGroup
+          aria-label="vertical outlined button group"
+          variant="outlined"
+          size="large"
+          color="secondary"
+        >
+          <Button onClick={(e) => rcpPick(0)}>Rock</Button>
+          <Button onClick={(e) => rcpPick(1)}>Scissors</Button>
+          <Button onClick={(e) => rcpPick(2)}>Paper</Button>
+        </ButtonGroup>
+      </div>
+    </Template>
   );
 }
+
+export default RockScissorsPaperPage;
