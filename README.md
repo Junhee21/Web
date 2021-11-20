@@ -1,4 +1,4 @@
-# Study Web Dev
+# Junhee's Web Site
 
 ## 1. Memo
 기능
