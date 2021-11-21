@@ -1,123 +1,77 @@
 import React, { useEffect, useState, useRef } from "react";
 import Template from "../components/Template";
+import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import { Snackbar } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import IconButton from "@mui/material/IconButton";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { sizeWidth } from "@mui/system";
 
-export default function Memo() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [memoList, setMemoList] = useState([
-    {
-      title: "title",
-      content: "content 1"
-    },
-    {
-      title: "title2",
-      content: "content2"
-    }
-  ]);
-  const [currentTab, setCurrentTab] = useState("write");
+const MemoPage = () => {
+  const navigate = useNavigate();
+  const [memoList, setMemoList] = useState(() => {
+    const saved = localStorage.getItem("memoList");
+    return JSON.parse(saved) || [];
+  });
 
-  useEffect(() => {
-    alert(currentTab);
-  }, [currentTab]);
-
-  const onTitleChange = (evt) => {
-    setTitle(evt.target.value);
-  };
-  const onContentChange = (evt) => {
-    setContent(evt.target.value);
-  };
-
-  const submit = () => {
-    if (title === "") {
-      alert("please insert title");
-      return;
-    }
-
-    const newObj = { title: title, content: content };
-
-    const cp = [...memoList];
-    cp.push(newObj);
-    setMemoList(cp);
-    setTitle("");
-    setContent("");
-    setCurrentTab("list");
-    // .. rest of the logic will be declared.
-  };
-
-  const updateTab = (targetTab) => {
-    setCurrentTab(targetTab);
-  };
+  const move = (page) => {
+    navigate("/" + page);
+  }
 
   return (
     <div>
       <Template now="memo">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            borderBottom: "1px solid black"
-          }}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "50px",
+        }}
         >
-          <div
-            style={{ flex: 1, fontWeight: currentTab === "write" ? 900 : 400 }}
-            onClick={(e) => updateTab("write")}
+          {memoList.map((x) => {
+            return (
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography variant="body1">
+                    {x.title}[{x.id}]
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <IconButton >
+                    <EditOutlinedIcon fontSize="small" />
+                  </IconButton>
+                  <Typography variant="body2">{x.content}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            );
+          })}
+          <Button
+            onClick={(e) => move("memo-create")}
+            variant="contained"
+            color="secondary"
+            sx={{
+              maxWidth: 700,
+              minWidth: 700
+            }}
           >
-            write
-          </div>
-          <div
-            style={{ flex: 1, fontWeight: currentTab === "list" ? 900 : 400 }}
-            onClick={(e) => updateTab("list")}
-          >
-            list
-          </div>
+            create memo
+          </Button>
         </div>
-
-        {currentTab === "write" ? (
-          <>
-            <br />
-            <span style={{ fontWeight: 600 }}>title </span>
-            <br />
-            <input
-              placeholder="type title"
-              value={title}
-              onChange={(e) => onTitleChange(e)}
-            />
-            <br />
-            <span style={{ fontWeight: 600 }}>content </span>
-            <br />
-            <textarea
-              rows={5}
-              value={content}
-              placeholder="type your content. Your are good"
-              onChange={(e) => onContentChange(e)}
-            />
-            <br />
-            <button onClick={(e) => submit()}>Submit</button>
-            <br />
-            <br />
-          </>
-        ) : (
-          <>
-            <select onChange={(e) => alert(e.target.value)}>
-              {memoList.map((obj) => {
-                return <option value="">{obj.title}</option>;
-              })}
-            </select>
-
-            <br />
-            <br />
-
-            {memoList.map((obj) => {
-              return (
-                <div>
-                  <span style={{ fontWeight: 600 }}>{obj.title}</span>
-                  <p> - {obj.content}</p>
-                </div>
-              );
-            })}
-          </>
-        )}
       </Template>
     </div>
   );
 }
+
+
+export default MemoPage;
