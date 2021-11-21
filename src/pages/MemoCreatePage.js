@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
-import { Snackbar } from "@mui/material";
 
 const style = {
     width: "100%",
@@ -17,18 +16,9 @@ const MemoCreatePage = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [openSnackbar, setOpenSnackbar] = useState("false");
 
     const move = (page) => {
         navigate("/" + page);
-    }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpenSnackbar(false);
     };
 
     const createMemo = () => {
@@ -39,8 +29,8 @@ const MemoCreatePage = () => {
             content: content
         });
         localStorage.setItem("memoList", JSON.stringify(currentMemoList));
-        setOpenSnackbar("true");
-    }
+        move("memo");
+    };
 
     return (
         <Template>
@@ -79,12 +69,12 @@ const MemoCreatePage = () => {
                 />
                 <br />
                 <Button
-                    onClick={(e) => createMemo}
+                    onClick={(e) => createMemo()}
                     variant="contained"
                     color="secondary"
                     sx={{
-                        maxWidth: 700,
-                        minWidth: 700
+                        maxWidth: 200,
+                        minWidth: 200
                     }}
                 >
                     create memo
@@ -95,21 +85,15 @@ const MemoCreatePage = () => {
                     variant="contained"
                     color="secondary"
                     sx={{
-                        maxWidth: 700,
-                        minWidth: 700
+                        maxWidth: 200,
+                        minWidth: 200
                     }}
                 >
                     memo list
                 </Button>
-                <Snackbar
-                    open={openSnackbar}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    message="Created"
-                />
             </div>
         </Template>
-    )
+    );
 };
 
 export default MemoCreatePage;
